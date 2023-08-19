@@ -1,0 +1,19 @@
+<%- include('./port/layout-start') %>
+
+    <div class="container my-5" style="width: 500px;">
+        <h2><%= title %></h2>
+        <form class="col" method="POST" action="/login">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary my-3">Submit</button>
+            <a href="/signup" class="btn btn-link my-3 pull-right">Sign Up</a>
+          </form>
+    </div>
+
+<%- include('./port/layout-end') %>

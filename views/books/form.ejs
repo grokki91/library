@@ -1,0 +1,43 @@
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputTitle">Title</label>
+        <input type="text" class="form-control" id="inputTitle" placeholder="title" value="<%= book.title %>" name="title" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" value="<%= book.description %>" name="description" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAuthors">Authors</label>
+      <input type="text" class="form-control" id="inputAuthors" placeholder="Authors" value="<%= book.authors %>" name="authors" required>
+    </div>
+    <div class="form-group">
+      <label for="inputFileCover">FileCover</label>
+      <input type="text" class="form-control" id="inputFileCover" placeholder="FileCover" value="<%= book.fileCover %>" name="fileCover" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputFileName">FileName</label>
+        <input type="text" class="form-control" id="inputFileName" value="<%= book.fileName %>" name="fileName" required>
+      </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">FileBook</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" value="<%= book.fileBook %>" name="fileBook" required>
+    </div>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <% if (book.favorite) { %>
+          <input class="form-check-input" type="checkbox" id="gridCheck" value="favorite" name="favorite" checked>
+          <% } else { %>
+          <input class="form-check-input" type="checkbox" id="gridCheck" value="favorite" name="favorite"> 
+          <% } %>
+        <label class="form-check-label" for="gridCheck">
+            favorite
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
