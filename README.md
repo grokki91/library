@@ -6,7 +6,9 @@
 
 ### Stack:
 - Node.js
+- Express
 - EJS
 - MongoDB
 - Bootstrap
+- Websocket
 
