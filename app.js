@@ -30,6 +30,11 @@ app.use('/public', express.static(__dirname+'/public'))
 app.use('/', auth)
 app.use('/', booksRoute)
 app.use('/', chat)
+app.use((req, res) => {
+    res.render('errors/404', {
+        title: '404 | PAGE NOT FOUND'
+    })
+  })
 
 io.on('connection', (socket) => {
     const {id} = socket

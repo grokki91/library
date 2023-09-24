@@ -45,6 +45,13 @@ class BookController {
     async viewBook(req, res, next) {
         try {
             const {id} = req.params
+
+            if (id.length !== 24) {
+                return res.render('errors/404', {
+                    title: '404 | THIS BOOK IS NOT EXIST'
+                })
+            }
+
             const book = await Book.findById(id).exec()
     
             if (book) {
@@ -57,10 +64,7 @@ class BookController {
                     img: imgPath
                 })
             }
-    
-            return res.render('errors/404', {
-                title: '404 | Страница не найдена'
-            })
+
         } catch (error) {
             console.log(error);
             next(error)
@@ -97,6 +101,12 @@ class BookController {
     async renderUpdateBook(req, res, next) {
         try {
             const {id} = req.params
+            if (id.length !== 24) {
+                return res.render('errors/404', {
+                    title: '404 | THIS BOOK IS NOT EXIST'
+                })
+            }
+
             const book = await Book.findById(id).exec()
             if (book) {
                 const imgPath = book.fileBook.replace(/\\/g, '/')
@@ -108,10 +118,7 @@ class BookController {
                     img: imgPath
                 })
             }
-    
-            return res.render('errors/404', {
-                title: '404 | Страница не найдена'
-            })
+
         } catch (error) {
             console.log('renderUpdateBook', error)
             next(error)
