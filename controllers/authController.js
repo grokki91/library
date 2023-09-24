@@ -1,7 +1,44 @@
+const Book = require('../model/Book');
 const User = require('../model/User')
 const bcrypt = require('bcryptjs')
 
 class AuthController {
+    async renderMainPage(req, res, next) {
+        try {
+            const books = await Book.find()
+            const user = req.session.user.username
+            let booksText;
+            if (books.length > 1) {
+                booksText = `There are ${books.length} books in the library`
+            } else if (books.length === 1) {
+                booksText = `There is one book in the library`
+            } else if (books.length < 1) {
+                booksText = ''
+            }
+            res.render('index', {
+                title: `Hello, ${user}!`,
+                name: '',
+                books: booksText
+            }) 
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async renderSignupPage(req, res, next) {
+        res.render('signup', {
+            title: 'Registration',
+            text: ''
+        })
+    }
+
+    async renderLoginPage(req, res, next) {
+        res.render('login', {
+            title: 'Authorization',
+            text: ''
+        })
+    }
+
     async signUp(req, res, next) {
         try {
             const {username, password} = req.body
@@ -52,6 +89,11 @@ class AuthController {
             console.log('Ошибка в БД при авторизации - ', error);
             return next(error)
         }
+    }
+
+    async logout(req, res, next) {
+        res.clearCookie('connect.sid')
+        res.redirect('/')
     }
     
     async getUsers(req, res) {
