@@ -18,7 +18,7 @@
         <label for="inputFileCover">Pages</label>
         <input type="text" class="form-control" id="inputFileCover" placeholder="Pages" value="<%= book.pages %>" name="pages" required>
       </div>
-    <div class="form-group file-loading">
+    <div class="form-group file-loading col-md-3 mx-2">
         <label for="exampleFormControlFile1">Picture (please download one of the following formats: jpg, jpeg or png)</label>
         <input type="file" class="form-control-file file" id="exampleFormControlFile1" data-preview-file-type="text" value="<%= book.fileBook %>" name="fileBook" 
         onchange="document.getElementById('file-img').src = window.URL.createObjectURL(this.files[0]);
@@ -28,6 +28,9 @@
           "/>
         <% } else { %>   
           <img src="#" alt="" id="file-img" style="display: none; max-width: 200px; margin-top: 20px;"/>
+        <% } %>
+        <% if(imgErrorFormat) { %>
+          <div class="alert alert-secondary my-2" role="alert"><%= imgErrorFormat %></div>
         <% } %>
     </div>
     </div>
@@ -45,6 +48,6 @@
     </div>
     <button type="submit" class="btn bg-dark text-white">Create</button>
     <% if (clearButton) { %>
-      <button type="reset" class="btn bg-dark text-white" onclick="document.getElementById('file-img').style.display = 'none'">Clear</button>
+      <button type="reset" class="btn bg-dark text-white" onclick="document.getElementById('file-img').style.display = 'none'; document.getElementsByTagName('form').reset()">Clear</button>
     <% } %>
   </form>

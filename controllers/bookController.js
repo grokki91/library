@@ -1,4 +1,3 @@
-const { json } = require('express')
 const fs = require("fs");
 const path = require('path')
 const Book = require('../model/Book')
@@ -18,8 +17,13 @@ class BookController {
                 await book.save()
                 res.redirect('/books')
             } else {
-                res.set('Content-Type', 'text/html')
-                res.send('<h1 style="font-size: 2rem;">This format picture is not supported</h1>')
+                res.render('books/create', {
+                    title: 'Add book',
+                    book: { title, description, authors, favorite, pages, fileBook},
+                    clearButton: false,
+                    img: false,
+                    imgErrorFormat: 'This format picture is not supported'
+                })
             }
         } catch (error) {
             next(error)
@@ -115,7 +119,8 @@ class BookController {
                     title: 'book | update',
                     book: book,
                     clearButton: false,
-                    img: imgPath
+                    img: imgPath,
+                    imgErrorFormat: false
                 })
             }
 
