@@ -2,7 +2,8 @@
 <%- include('../port/menu') %>
 
 <h1><%= title %></h1>
-<a class="btn btn-sm btn-primary" href="books/create">Add book</a>
+<a class="btn btn-sm bg-dark text-white" href="book/create">Add book</a>
+<a class="btn btn-sm bg-dark text-white text-right" href="/books/download">Download</a>
 
     <% if(books.length) { %>
 
@@ -10,7 +11,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Заголовок</th>
+                <th scope="col"><a href="/books/sorted" class="text-dark">Title</a></th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -21,12 +22,16 @@
                         <th scope="row"><%= idx +1 %></th>
                         <td><%= el.title %></td>
                         <td class="text-right">
-                            <a class="btn btn-sm btn-success" href="/books/<%= el.id %>">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                            <a class="btn btn-sm btn-primary" href="/books/update/<%= el.id %>">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
+                            <form method="POST" enctype="multipart/form-data" action="/book/delete/<%= el.id %>">
+                                <a class="btn btn-sm bg-dark text-white" href="/book/<%= el.id %>">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm bg-dark text-white" href="/book/update/<%= el.id %>">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <button class="btn btn-sm bg-dark text-white" type="submit">&#128465;</button>
+                            </form>
+
                         </td>
                     </tr>
                 <% }) %>
@@ -35,7 +40,8 @@
         </table>
 
     <% } else { %>   
-        <h3 class="mt-5">Книг пока нет</h3>
+        <hr>
+        <h3 class="mt-5">There are no books in the library</h3>
     <% } %>    
 
     

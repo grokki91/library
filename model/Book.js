@@ -14,17 +14,21 @@ const bookSchema = new Schema({
         required: true
     },
     favorite: {
+        type: Boolean,
+        default: false
+    },
+    pages: {
         type: String,
         required: true
     },
-    fileCover: {
-        type: String,
-        required: true
+    fileBook: {
+        type: String
     },
-    fileName : {
-        type: String,
-        required: true
+    views: {
+        type: Number,
+        default: 0
     }
-})
+
+}, {timestamps: true})
 
 module.exports = model('Book', bookSchema)

@@ -9,10 +9,6 @@ const User = new Schema({
         type: String,
         require: true
     },
-    created: {
-        type: Date,
-        default: Date.now()
-    }
-})
+}, {timestamps: true})
 
 module.exports = model('User', User)

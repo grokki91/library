@@ -1,6 +1,5 @@
 module.exports = {
-    DB_NAME: 'grokki91',
-    DB_PASSWORD: 'test789',
+    DB_URL: `mongodb+srv://grokki91:test789@cluster0.bfa2hhe.mongodb.net/`,
     PORT: '3000',
-    SECRET : 'My_secret_789123+_word'
+    SECRET : 'My_secret_789123+_word',
 }

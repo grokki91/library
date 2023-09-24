@@ -1,13 +1,5 @@
 const User = require('../model/User')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { SECRET } = require('../config')
-const { render } = require('ejs')
-
-const generateToken = (id) => {
-    const payload = { id }
-    return jwt.sign(payload, SECRET, { expiresIn: '1h' })
-}
 
 class AuthController {
     async signUp(req, res, next) {
@@ -27,7 +19,7 @@ class AuthController {
             res.redirect('/')
         } catch (error) {
             console.log(error)
-            next(error)
+            return next(error)
         }
 
     }
@@ -36,20 +28,25 @@ class AuthController {
         try {
             const { username, password } = req.body
             const user = await User.findOne({username})
-            console.log(req.body, req.headers, user)
 
             if (!user) {
-                res.status(404).json({message: 'Пользователь не найден'})
+                return res.render('login', {
+                    title: 'Authorization',
+                    text: 'Пользователя с таким email не существует'
+                })
             }
 
             const hashPassword = bcrypt.compareSync(password, user.password)
-
-            if (hashPassword) {
-                const token = generateToken(username._id)
-                return res.status(201).json({token: `Bearer ${token}`})
-            } else {
-                res.status(401).json({message: 'Введен неверный пароль'})
+            if (!hashPassword) {
+                return res.render('login', {
+                    title: 'Authorization',
+                    text: 'Введен неверный пароль'
+                })
             }
+            
+            req.session.authorized = true
+            req.session.user = user
+            res.redirect('/')
 
         } catch (error) {
             console.log('Ошибка в БД при авторизации - ', error);

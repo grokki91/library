@@ -2,7 +2,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputTitle">Title</label>
-        <input type="text" class="form-control" id="inputTitle" placeholder="title" value="<%= book.title %>" name="title" required>
+        <input type="text" class="form-control" id="inputTitle" placeholder="Title" value="<%= book.title %>" name="title" required>
       </div>
       <div class="form-group col-md-6">
         <label for="inputDescription">Description</label>
@@ -13,31 +13,38 @@
       <label for="inputAuthors">Authors</label>
       <input type="text" class="form-control" id="inputAuthors" placeholder="Authors" value="<%= book.authors %>" name="authors" required>
     </div>
-    <div class="form-group">
-      <label for="inputFileCover">FileCover</label>
-      <input type="text" class="form-control" id="inputFileCover" placeholder="FileCover" value="<%= book.fileCover %>" name="fileCover" required>
-    </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputFileName">FileName</label>
-        <input type="text" class="form-control" id="inputFileName" value="<%= book.fileName %>" name="fileName" required>
+        <label for="inputFileCover">Pages</label>
+        <input type="text" class="form-control" id="inputFileCover" placeholder="Pages" value="<%= book.pages %>" name="pages" required>
       </div>
-    <div class="form-group">
-        <label for="exampleFormControlFile1">FileBook</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1" value="<%= book.fileBook %>" name="fileBook" required>
+    <div class="form-group file-loading">
+        <label for="exampleFormControlFile1">Picture (please download one of the following formats: jpg, jpeg or png)</label>
+        <input type="file" class="form-control-file file" id="exampleFormControlFile1" data-preview-file-type="text" value="<%= book.fileBook %>" name="fileBook" 
+        onchange="document.getElementById('file-img').src = window.URL.createObjectURL(this.files[0]);
+        document.getElementById('file-img').style.display='inline'" >
+        <% if (book.fileBook) { %>
+          <img src="/<%= img %>" alt="" id="file-img" style="max-width: 200px; box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.2); margin-top: 20px;
+          "/>
+        <% } else { %>   
+          <img src="#" alt="" id="file-img" style="display: none; max-width: 200px; margin-top: 20px;"/>
+        <% } %>
     </div>
     </div>
     <div class="form-group">
       <div class="form-check">
         <% if (book.favorite) { %>
-          <input class="form-check-input" type="checkbox" id="gridCheck" value="favorite" name="favorite" checked>
+          <input class="form-check-input" type="checkbox" id="gridCheck" name="favorite" checked>
           <% } else { %>
-          <input class="form-check-input" type="checkbox" id="gridCheck" value="favorite" name="favorite"> 
+          <input class="form-check-input" type="checkbox" id="gridCheck" name="favorite"> 
           <% } %>
         <label class="form-check-label" for="gridCheck">
             favorite
         </label>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn bg-dark text-white">Create</button>
+    <% if (clearButton) { %>
+      <button type="reset" class="btn bg-dark text-white" onclick="document.getElementById('file-img').style.display = 'none'">Clear</button>
+    <% } %>
   </form>

@@ -1,19 +1,24 @@
+</div>
 <script>
     const socket = io.connect('/')
     const boxList = document.querySelector('#list')
     const sendBtn = document.querySelector('.btn-message')
     const textMessage = document.querySelector('.text-message')
     const username = document.querySelector('.user-name')
-
+    
     const getTmp = (msg) => {
-        return `
-                <div class="list-group-item list-group-item-action">
+        if (username.value) {
+            return `
+            <small class="fs-6">${msg.date}</small>
+                <div class="list-group-item list-group-item-action mb-2">
                     <div class="d-flex w-100 justify-content-between">
                         <small class="text-muted">${msg.user}</small>
                     </div>
                     <p class="mb-1">${msg.text}</p>
                 </div>
         `;
+        }
+        return ''
     };
 
     socket.on('message-to-all', (msg) => {
@@ -24,8 +29,10 @@
     sendBtn && sendBtn.addEventListener('click', () => {
         socket.emit('message-to-all', {
             user: username.value,
-            text: textMessage.value
+            text: textMessage.value,
+            date: String(new Date()).slice(4, 24)
         })
+        textMessage.value = ''
     })
 </script>
 </body>

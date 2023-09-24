@@ -3,7 +3,7 @@ const router = express.Router()
 const controller = require('../controllers/authController')
 const checkToken = require('../middleware/checkToken')
 const validate = require('../middleware/validation')
-const User = require('../model/User')
+const Book = require('../model/Book')
 
 router.get('/signup', (req, res) => {
     res.render('signup', {
@@ -15,19 +15,35 @@ router.get('/signup', (req, res) => {
 router.get('/login', (req, res) => {
     res.render('login', {
         title: 'Authorization',
+        text: ''
     })
 })
 
-router.get('/', (req, res) => {
-    const {username} = req.body
-    const user = User.findOne({username})
+router.get('/', checkToken, async (req, res) => {
+    const books = await Book.find()
+    const user = req.session.user.username
+    let booksText;
+    if (books.length > 1) {
+        booksText = `There are ${books.length} books in the library`
+    } else if (books.length === 1) {
+        booksText = `There is one book in the library`
+    } else if (books.length < 1) {
+        booksText = ''
+    }
     res.render('index', {
-        title: 'Main',
-        name: user
+        title: `Hello, ${user}!`,
+        name: '',
+        books: booksText
     }) 
 })
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('connect.sid')
+    res.redirect('/')
+})
+
 router.post('/signup', controller.signUp)
-router.post('/login', checkToken, controller.login)
+router.post('/login', controller.login)
 router.get('/users', controller.getUsers)
 router.delete('/users', controller.removeUsers)
 
