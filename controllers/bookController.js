@@ -187,6 +187,7 @@ class BookController {
             if (books.length) {
                 const filePath = path.join(__dirname, '../', 'public/data', 'books.txt')
                 const content = 'Books:\n\n' + books.toString()
+                !fs.existsSync(`./public/data/`) && fs.mkdirSync(`./public/data/`, { recursive: true })
                 return fs.writeFile(filePath, content, (err) => {
                     if (err) {
                         console.log(err);
