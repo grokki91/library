@@ -1,5 +1,4 @@
 const express = require('express')
-const Book = require('../model/Book')
 const router = express.Router()
 const fileMulter = require('../middleware/file')
 const BookController = require('../controllers/bookController')
