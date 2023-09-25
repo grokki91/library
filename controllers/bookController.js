@@ -19,7 +19,7 @@ class BookController {
             } else {
                 res.render('books/create', {
                     title: 'Add book',
-                    book: { title, description, authors, favorite, pages, fileBook},
+                    book: { title, description, authors, favorite, pages },
                     clearButton: false,
                     img: false,
                     imgErrorFormat: 'This format picture is not supported'
