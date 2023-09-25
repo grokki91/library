@@ -38,7 +38,6 @@ app.use((req, res) => {
 
 io.on('connection', (socket) => {
     const {id} = socket
-    console.log(`Connection - ${id}`);
 
     socket.on('message-to-me', (msg) => {
         msg.type = 'me'
@@ -52,7 +51,6 @@ io.on('connection', (socket) => {
     })
 
     socket.on('disconnect', () => {
-        console.log(`Disconnect - ${id}`);
     })
 })
 
