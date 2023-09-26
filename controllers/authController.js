@@ -18,7 +18,6 @@ class AuthController {
             res.render('index', {
                 title: `Hello, ${user}!`,
                 name: '',
-                books: booksText
             }) 
         } catch (error) {
             next(error)
